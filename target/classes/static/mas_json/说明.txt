@@ -1,0 +1,11 @@
+数据说明
+	每个json文件中包括如下属性：
+	title
+	authors(list，每个元素格式为name.....url)
+	field
+	pages
+	departments(list)
+	conf
+	year
+	abstract
+	citation(需要处理一下，现在有引用是这种格式（如被引用18次）：Citations (18)；没有引用是这种格式：Not cited)
