@@ -25,6 +25,13 @@ public interface ConferenceService {
      * @param fName
      * @return
      */
+    List<Conference> findByCName(String fName);
+
+    /**
+     * 根据名称查询
+     * @param fName
+     * @return
+     */
     List<Conference> findAllByCName(String fName);
 
     /**

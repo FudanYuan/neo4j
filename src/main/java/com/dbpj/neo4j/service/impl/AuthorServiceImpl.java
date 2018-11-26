@@ -29,13 +29,23 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    public List<Author> findByName(String name) {
+        return authorRepository.findAllByANameEquals(name);
+    }
+
+    @Override
     public List<Author> findAllByName(String name) {
-        return authorRepository.findByName(name);
+        return authorRepository.findAllByANameContains(name);
     }
 
     @Override
     public List<Author> findAllByNameAndUrl(String name, String url) {
         return authorRepository.findByNameAndUrl(name, url);
+    }
+
+    @Override
+    public List<Author> findAllByNameEqualsAndUrlEquals(String name, String url) {
+        return authorRepository.findAllByANameEqualsAndAUrlEquals(name, url);
     }
 
     @Override

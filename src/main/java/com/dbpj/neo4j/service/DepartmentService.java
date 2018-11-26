@@ -21,6 +21,13 @@ public interface DepartmentService {
     List<Department> findAll();
 
     /**
+     * 根据名称查询，全相等
+     * @param dName
+     * @return
+     */
+    List<Department> findByDName(String dName);
+
+    /**
      * 根据名称查询
      * @param dName
      * @return

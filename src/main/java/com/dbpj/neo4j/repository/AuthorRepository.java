@@ -15,8 +15,11 @@ public interface AuthorRepository extends GraphRepository<Author> {
     @Query("MATCH (a:author) RETURN a")
     List<Author> getAuthorList();
 
-    @Query("MATCH (a:author) WHERE a.aName =~ ('(?i).*'+{aName}+'.*') RETURN a")
-    List<Author> findByName(@Param("aName") String aName);
+    List<Author> findAllByANameEquals(String aName);
+
+    List<Author> findAllByANameContains(String aName);
+
+    List<Author> findAllByANameEqualsAndAUrlEquals(String aName, String aUrl);
 
     @Query("MATCH (a:author) WHERE a.aName =~ ('(?i).*'+{aName}+'.*') and a.aUrl =~ ('(?i).*'+{aUrl}+'.*') RETURN a")
     List<Author> findByNameAndUrl(@Param("aName") String aName, @Param("aUrl") String aUrl);

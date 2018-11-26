@@ -30,6 +30,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public List<Department> findByDName(String dName) {
+        return departmentRepository.findAllByDNameEquals(dName);
+    }
+
+    @Override
     public List<Department> findAllByDName(String dName) {
         return departmentRepository.findAllByDNameContains(dName);
     }

@@ -23,6 +23,8 @@ public interface PaperRepository extends GraphRepository<Paper> {
 
     List<Paper> findAllByPYearBetween(Integer year1, Integer year2);
 
+    List<Paper> findAllByPTitleEquals(String title);
+
     List<Paper> findAllByPTitleContains(String title);
 
     @Query("CREATE (p:paper{pTitle:{pTitle}, pAbstract: {pAbstract}, pPage:{pPage}, pCitation:{pCitation}, pYear:{pYear}}) RETURN p")

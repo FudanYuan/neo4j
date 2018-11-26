@@ -25,6 +25,13 @@ public interface FieldService {
      * @param fName
      * @return
      */
+    List<Field> findByFName(String fName);
+
+    /**
+     * 根据名称查询
+     * @param fName
+     * @return
+     */
     List<Field> findAllByFName(String fName);
 
     /**

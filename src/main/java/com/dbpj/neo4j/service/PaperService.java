@@ -19,6 +19,11 @@ public interface PaperService {
     List<Paper> findAll();
 
     /**
+     * 根据题目进行查询，全相等
+     */
+    List<Paper> findByTitle(String name);
+
+    /**
      * 根据题目进行查询
      */
     List<Paper> findAllByTitle(String name);

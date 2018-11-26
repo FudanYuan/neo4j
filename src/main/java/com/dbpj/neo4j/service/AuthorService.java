@@ -20,7 +20,12 @@ public interface AuthorService {
     List<Author> findAll();
 
     /**
-     * 根据姓名进行查询
+     * 根据姓名进行查询，全相等
+     */
+    List<Author> findByName(String name);
+
+    /**
+     * 根据姓名进行查询，模糊查询
      */
     List<Author> findAllByName(String name);
 
@@ -28,6 +33,11 @@ public interface AuthorService {
      * 根据姓名和url查询
      */
     List<Author> findAllByNameAndUrl(String name, String url);
+
+    /**
+     * 根据姓名和url查询
+     */
+    List<Author> findAllByNameEqualsAndUrlEquals(String name, String url);
 
     /**
      * 保存

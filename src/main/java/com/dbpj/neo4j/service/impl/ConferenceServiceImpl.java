@@ -29,6 +29,11 @@ public class ConferenceServiceImpl implements ConferenceService {
     }
 
     @Override
+    public List<Conference> findByCName(String name){
+        return conferenceRepository.findAllByCNameEquals(name);
+    }
+
+    @Override
     public List<Conference> findAllByCName(String fName) {
         return conferenceRepository.findAllByCNameContains(fName);
     }

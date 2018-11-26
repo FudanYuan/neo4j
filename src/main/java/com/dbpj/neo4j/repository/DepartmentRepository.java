@@ -15,6 +15,8 @@ public interface DepartmentRepository extends GraphRepository<Department> {
     @Query("MATCH (d:department) RETURN d")
     List<Department> getDepartmentList();
 
+    List<Department> findAllByDNameEquals(String dName);
+
     List<Department> findAllByDNameContains(String dName);
 
     List<Department> findAllByDAddressContains(String aAddress);

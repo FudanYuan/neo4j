@@ -29,7 +29,6 @@ public class Paper {
      * 论文摘要
      */
     private String pAbstract;
-
     /**
      * 论文页码
      */

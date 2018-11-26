@@ -29,6 +29,11 @@ public class PaperServiceImpl implements PaperService{
     }
 
     @Override
+    public List<Paper> findByTitle(String name) {
+        return paperRepository.findAllByPTitleEquals(name);
+    }
+
+    @Override
     public List<Paper> findAllByTitle(String name) {
         return paperRepository.findAllByPTitleContains(name);
     }

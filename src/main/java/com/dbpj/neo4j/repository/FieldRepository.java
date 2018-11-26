@@ -15,6 +15,8 @@ public interface FieldRepository extends GraphRepository<Field> {
     @Query("MATCH (f:field) RETURN f")
     List<Field> getFieldList();
 
+    List<Field> findAllByFNameEquals(String fName);
+
     List<Field> findAllByFNameContains(String fName);
 
     @Query("CREATE (f:field{fName:{fName}}) RETURN f")

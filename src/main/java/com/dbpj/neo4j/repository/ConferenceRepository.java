@@ -15,6 +15,8 @@ public interface ConferenceRepository extends GraphRepository<Conference> {
     @Query("MATCH (c:conference) RETURN c")
     List<Conference> getConferenceList();
 
+    List<Conference> findAllByCNameEquals(String cName);
+
     List<Conference> findAllByCNameContains(String cName);
 
     @Query("CREATE (c:conference{cName:{cName}}) RETURN c")

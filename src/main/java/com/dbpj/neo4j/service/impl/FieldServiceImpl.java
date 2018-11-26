@@ -30,6 +30,11 @@ public class FieldServiceImpl implements FieldService {
     }
 
     @Override
+    public List<Field> findByFName(String fName) {
+        return fieldRepository.findAllByFNameEquals(fName);
+    }
+
+    @Override
     public List<Field> findAllByFName(String fName) {
         return fieldRepository.findAllByFNameContains(fName);
     }
