@@ -372,11 +372,11 @@ public class Json2Neo4j {
             }
 
             long endTime=System.currentTimeMillis(); //获取结束时间
-            String runtime = (endTime-startTime)+"ms";
+            long runtime = endTime-startTime;
 
             // 插入成功，记录日志
             FileUtil.writeLogFile(successLogPath, file, true);
-            FileUtil.writeLogFile(runtimeLogPath, file + ", " + runtime, true);
+            FileUtil.writeLogFile(runtimeLogPath, file + "," + runtime, true);
             count++;
         }
         return ResultVOUtil.success(count);
