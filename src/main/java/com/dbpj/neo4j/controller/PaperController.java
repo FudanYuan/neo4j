@@ -215,7 +215,8 @@ public class PaperController {
 
         long startTime = System.currentTimeMillis();   //获取开始时间
 
-        paperService.delete(paper);
+        List<Paper> paperList = paperService.findByTitle(pTitle);
+        paperService.deletePapers(paperList);
 
         long endTime=System.currentTimeMillis(); //获取结束时间
         long runtime = endTime-startTime;

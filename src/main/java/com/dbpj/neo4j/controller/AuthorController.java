@@ -162,7 +162,8 @@ public class AuthorController {
         // 记录执行时间
         long runtime = 0;
         long startTime = System.currentTimeMillis();   //获取开始时间
-        authorService.delete(author);
+        List<Author> authors = authorService.findAllByNameAndUrl(aName, aUrl);
+        authorService.deleteAuthors(authors);
         long endTime=System.currentTimeMillis(); //获取结束时间
         runtime += endTime-startTime;
 
