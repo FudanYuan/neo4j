@@ -38,23 +38,29 @@ public interface ConferenceService {
      * 添加
      * @return
      */
-    List<Conference> save(Conference field);
+    List<Conference> save(Conference conference);
+
+
+    /**
+     * 保存列表
+     */
+    List<Long> save(List<Conference> conferenceList);
 
     /**
      * 更新
      * @return
      */
-    List<Conference> update(Conference field);
+    List<Conference> update(Conference conference);
 
     /**
      * 删除单节点
-     * @param field
+     * @param conference
      */
-    void delete(Conference field);
+    void delete(Conference conference);
 
     /**
      * 批量删除
-     * @param fields
+     * @param conferences
      */
-    void deleteConferences(List<Conference> fields);
+    void deleteConferences(List<Conference> conferences);
 }

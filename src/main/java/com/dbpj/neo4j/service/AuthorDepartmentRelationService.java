@@ -1,5 +1,7 @@
 package com.dbpj.neo4j.service;
 
+import com.dbpj.neo4j.node.Author;
+import com.dbpj.neo4j.node.Department;
 import com.dbpj.neo4j.relation.AuthorDepartmentRelation;
 
 import java.util.List;
@@ -58,6 +60,11 @@ public interface AuthorDepartmentRelationService {
      * 保存
      */
     List<AuthorDepartmentRelation> save(Long aId, Long dId, Integer sYear, Integer eYear);
+
+    /**
+     * 保存列表
+     */
+    boolean save(List<Long> authorIndexList, List<Long> departmentIndexList, Integer pYear);
 
     /**
      * 更改

@@ -1,6 +1,8 @@
 package com.dbpj.neo4j.utils;
 
 import com.dbpj.neo4j.VO.ResultVO;
+import com.dbpj.neo4j.enums.ResultEnum;
+
 /**
  * @Author: Jeremy
  * @Date: 2018/11/7 15:22
@@ -23,5 +25,9 @@ public class ResultVOUtil {
         resultVO.setCode(code);
         resultVO.setMsg(msg);
         return resultVO;
+    }
+
+    public static ResultVO error(ResultEnum resultEnum){
+        return error(resultEnum.getCode(), resultEnum.getMessage());
     }
 }

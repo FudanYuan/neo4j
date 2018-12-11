@@ -45,6 +45,11 @@ public interface AuthorService {
     List<Author> save(Author author);
 
     /**
+     * 保存列表
+     */
+    List<Long> save(List<Author> authorList);
+
+    /**
      * 更改
      * @param author
      * @return

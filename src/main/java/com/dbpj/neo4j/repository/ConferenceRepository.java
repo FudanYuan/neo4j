@@ -24,6 +24,9 @@ public interface ConferenceRepository extends GraphRepository<Conference> {
 
     @Query("MATCH (c:conference) WHERE ID(c) = {id} SET c.cName = {cName} RETURN c")
     List<Conference> editConference(@Param("id") Long id, @Param("cName") String cName);
+//
+//    @Query("MATCH (n) WHERE ID(n) IN {idList} OPTIONAL MATCH (n)-[r0]-() DELETE r0, n")
+//    void deleteByCName(@Param("cName") String cName);
 
     @Query("MATCH (n) WHERE ID(n) IN {idList} OPTIONAL MATCH (n)-[r0]-() DELETE r0, n")
     void deleteConferenceIn(@Param("idList") List<Long> idList);

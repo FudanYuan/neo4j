@@ -62,6 +62,11 @@ public class AuthorPaperRelationServiceImpl implements AuthorPaperRelationServic
     }
 
     @Override
+    public List<AuthorPaperRelation> findAuthorsCooperateWith(String name, String url, Integer k) {
+        return relationRepository.findAuthorsCooperateWith(name, url, k);
+    }
+
+    @Override
     public List<AuthorPaperRelation> save(AuthorPaperRelation relation) {
         return relationRepository.addRelation(relation.getAuthor().getId(),
                 relation.getPaper().getId(), relation.getAIndex());

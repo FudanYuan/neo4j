@@ -138,7 +138,6 @@ public class Json2Neo4j {
 
     // 添加至数据库
     public ResultVO insert2Neo4j(List<String> files, String errorLogPath, String successLogPath){
-
         int count = 0;
         for (String file : files){
             String JsonContext = FileUtil.readFile(file);

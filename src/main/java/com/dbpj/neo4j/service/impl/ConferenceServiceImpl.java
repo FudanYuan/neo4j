@@ -44,6 +44,26 @@ public class ConferenceServiceImpl implements ConferenceService {
     }
 
     @Override
+    public List<Long> save(List<Conference> conferenceList) {
+
+        List<Long> indexList = new ArrayList<>();
+        for (Conference c : conferenceList) {
+            Long cId;
+            List<Conference> res = this.findByCName(c.getCName());
+            if (res.size() == 0){
+                List<Conference> saveRes = this.save(c);
+                cId = saveRes.get(0).getId();
+            } else{
+                cId = res.get(0).getId();
+            }
+            if(!indexList.contains(cId)){
+                indexList.add(cId);
+            }
+        }
+        return indexList;
+    }
+
+    @Override
     public List<Conference> update(Conference conference) {
         return conferenceRepository.editConference(conference.getId(), conference.getCName());
     }

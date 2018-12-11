@@ -59,11 +59,24 @@ public interface AuthorPaperRelationService {
      */
     List<AuthorPaperRelation> findAllByPaperTitle(String pName);
 
+
+    /**
+     * 查询与某作者合作次数前k的作者
+     */
+    List<AuthorPaperRelation> findAuthorsCooperateWith(String name, String url, Integer k);
+
     /**
      * 保存
      */
     List<AuthorPaperRelation> save(AuthorPaperRelation relation);
 
+    /**
+     * 保存
+     * @param aId
+     * @param pId
+     * @param aIndex
+     * @return
+     */
     List<AuthorPaperRelation> save(Long aId, Long pId, Integer aIndex);
 
     /**

@@ -54,6 +54,11 @@ public interface PaperService {
     List<Paper> save(Paper paper);
 
     /**
+     * 保存列表
+     */
+    List<Long> save(List<Paper> paperList);
+
+    /**
      * 更改
      * @param paper
      * @return

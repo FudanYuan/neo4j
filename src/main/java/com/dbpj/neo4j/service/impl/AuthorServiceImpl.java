@@ -54,6 +54,25 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    public List<Long> save(List<Author> authorList) {
+        List<Long> indexList = new ArrayList<>();
+        for (Author a : authorList){
+            Long aId;
+            List<Author> res = this.findAllByNameEqualsAndUrlEquals(a.getAName(), a.getAUrl());
+            if (res.size() == 0){ // 数据库不存在则插入
+                List<Author> saveRes = this.save(a);
+                aId = saveRes.get(0).getId();
+            } else {
+                aId = res.get(0).getId();
+            }
+            if(!indexList.contains(aId)){
+                indexList.add(aId);
+            }
+        }
+        return indexList;
+    }
+
+    @Override
     public List<Author> update(Author author) {
         return authorRepository.editAuthor(author.getId(), author.getAName(), author.getAUrl());
     }

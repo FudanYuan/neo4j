@@ -48,6 +48,11 @@ public interface DepartmentService {
     List<Department> save(Department department);
 
     /**
+     * 保存列表
+     */
+    List<Long> save(List<Department> departmentList);
+
+    /**
      * 更新
      * @return
      */

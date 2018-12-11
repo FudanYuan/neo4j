@@ -1,5 +1,8 @@
 package com.dbpj.neo4j.service.impl;
 
+import com.dbpj.neo4j.node.Author;
+import com.dbpj.neo4j.node.Conference;
+import com.dbpj.neo4j.node.Department;
 import com.dbpj.neo4j.relation.AuthorDepartmentRelation;
 import com.dbpj.neo4j.repository.AuthorDepartmentRelationRepository;
 import com.dbpj.neo4j.service.AuthorDepartmentRelationService;
@@ -15,7 +18,6 @@ import java.util.List;
  */
 @Service
 public class AuthorDepartmentRelationServiceImpl implements AuthorDepartmentRelationService {
-
     @Autowired
     private AuthorDepartmentRelationRepository relationRepository;
 
@@ -68,6 +70,23 @@ public class AuthorDepartmentRelationServiceImpl implements AuthorDepartmentRela
     @Override
     public List<AuthorDepartmentRelation> save(Long aId, Long dId, Integer sYear, Integer eYear) {
         return relationRepository.addRelation(aId, dId, sYear, eYear);
+    }
+
+    @Override
+    public boolean save(List<Long> authorIndexList, List<Long> departmentIndexList, Integer pYear) {
+        // 插入作者-单位信息
+        int i = 0;
+        int j = 0;
+        while (i <= authorIndexList.size()-1 && j <= departmentIndexList.size()-1){
+            List<AuthorDepartmentRelation> ADRelationRes = this.findAllByAllParams(authorIndexList.get(i),
+                    departmentIndexList.get(j), pYear, -1);
+            if (ADRelationRes.size() == 0){
+                this.save(authorIndexList.get(i), departmentIndexList.get(j), pYear, -1);
+            }
+            i++;
+            j++;
+        }
+        return true;
     }
 
     @Override

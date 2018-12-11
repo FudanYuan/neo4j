@@ -65,6 +65,25 @@ public class PaperServiceImpl implements PaperService{
     }
 
     @Override
+    public List<Long> save(List<Paper> paperList) {
+        List<Long> indexList = new ArrayList<>();
+        for (Paper p : paperList){
+            Long pId;
+            List<Paper> res = paperRepository.findAllByPTitleEquals(p.getPTitle());
+            if (res.size() == 0){ // 数据库不存在则插入
+                List<Paper> saveRes = this.save(p);
+                pId = saveRes.get(0).getId();
+            } else {
+                pId = res.get(0).getId();
+            }
+            if(!indexList.contains(pId)){
+                indexList.add(pId);
+            }
+        }
+        return indexList;
+    }
+
+    @Override
     public List<Paper> update(Paper paper){
         return paperRepository.editPaper(paper.getId(), paper.getPTitle(), paper.getPAbstract(),
                 paper.getPPage(), paper.getPCitation(), paper.getPYear());

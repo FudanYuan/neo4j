@@ -41,6 +41,11 @@ public interface FieldService {
     List<Field> save(Field field);
 
     /**
+     * 保存列表
+     */
+    List<Long> save(List<Field> fieldList);
+
+    /**
      * 更新
      * @return
      */

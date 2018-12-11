@@ -50,6 +50,26 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public List<Long> save(List<Department> departmentList) {
+        // 插入单位信息
+        List<Long> indexList = new ArrayList<>();
+        for (Department d : departmentList){
+            Long dId;
+            List<Department> res = this.findByDName(d.getDName());
+            if (res.size() == 0){ // 数据库不存在则插入
+                List<Department> saveRes = this.save(d);
+                dId = saveRes.get(0).getId();
+            } else {
+                dId = res.get(0).getId();
+            }
+            if (!indexList.contains(dId)){
+                indexList.add(dId);
+            }
+        }
+        return indexList;
+    }
+
+    @Override
     public List<Department> update(Department department) {
         return departmentRepository.editDepartment(department.getId(), department.getDName(), department.getDAddress());
     }

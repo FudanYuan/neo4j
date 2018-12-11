@@ -45,6 +45,26 @@ public class FieldServiceImpl implements FieldService {
     }
 
     @Override
+    public List<Long> save(List<Field> fieldList) {
+        // 插入领域信息
+        List<Long> indexList = new ArrayList<>();
+        for (Field f : fieldList){
+            Long fId;
+            List<Field> fieldRes = this.findByFName(f.getFName());
+            if (fieldRes.size() == 0){ // 数据库不存在则插入
+                List<Field> saveRes = this.save(f);
+                fId = saveRes.get(0).getId();
+            } else {
+                fId = fieldRes.get(0).getId();
+            }
+            if(!indexList.contains(fId)){
+                indexList.add(fId);
+            }
+        }
+        return null;
+    }
+
+    @Override
     public List<Field> update(Field field) {
         return fieldRepository.editField(field.getId(), field.getFName());
     }
