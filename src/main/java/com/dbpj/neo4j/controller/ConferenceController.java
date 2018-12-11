@@ -27,18 +27,14 @@ public class ConferenceController {
     // 插入会议
     @CrossOrigin
     @PostMapping("/insert")
-    public ResultVO insertConferenceInfo(@RequestBody JSONObject jsonObject){
-        String conferenceInfo = jsonObject.toString();
-        if (conferenceInfo.equals("{}")) {
-            return ResultVOUtil.error(ResultEnum.REQUEST_NULL);
-        }
-        String type = jsonObject.get("type").toString();
-        if (!type.equals("3")){
+    public ResultVO insertConferenceInfo(@RequestParam(value = "type") Integer type,
+                                         @RequestParam(value = "conference") String cName){
+
+        if (type != 3){
             return ResultVOUtil.error(ResultEnum.TYPE_ERROR);
         }
 
         // 获取会议信息
-        String cName = jsonObject.get("conference").toString();
         Conference conference = new Conference();
         conference.setCName(cName);
 
@@ -61,18 +57,14 @@ public class ConferenceController {
     // 删除会议
     @CrossOrigin
     @PostMapping("/delete")
-    public ResultVO deleteConferenceInfo(@RequestBody JSONObject jsonObject){
-        String conferenceInfo = jsonObject.toString();
-        if (conferenceInfo.equals("{}")) {
-            return ResultVOUtil.error(ResultEnum.REQUEST_NULL);
-        }
-        String type = jsonObject.get("type").toString();
-        if (!type.equals("3")){
+    public ResultVO deleteConferenceInfo(@RequestParam(value = "type") Integer type,
+                                         @RequestParam(value = "conference") String cName){
+
+        if (type != 3){
             return ResultVOUtil.error(ResultEnum.TYPE_ERROR);
         }
 
         // 获取会议信息
-        String cName = jsonObject.get("conference").toString();
         Conference conference = new Conference();
         conference.setCName(cName);
 

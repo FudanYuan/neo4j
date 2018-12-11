@@ -118,19 +118,12 @@ public class AuthorController {
     // 插入作者
     @CrossOrigin
     @PostMapping("/insert")
-    public ResultVO insertAuthorInfo(@RequestBody JSONObject jsonObject){
-        String authorInfo = jsonObject.toString();
-        if (authorInfo.equals("{}")) {
-            return ResultVOUtil.error(ResultEnum.REQUEST_NULL);
-        }
-        String type = jsonObject.get("type").toString();
-        if (!type.equals("1")){
+    public ResultVO insertAuthorInfo(@RequestParam(value = "type") Integer type,
+                                     @RequestParam(value = "authorName") String aName,
+                                     @RequestParam(value = "authorURL") String aUrl){
+        if (type != 1){
             return ResultVOUtil.error(ResultEnum.TYPE_ERROR);
         }
-
-        // 获取作者信息
-        String aName = jsonObject.get("authorName").toString();
-        String aUrl = jsonObject.get("authorURL").toString();
 
         // 保存作者信息
         Author author = new Author();
@@ -155,21 +148,14 @@ public class AuthorController {
     // 删除作者
     @CrossOrigin
     @PostMapping("/delete")
-    public ResultVO deleteAuthorInfo(@RequestBody JSONObject jsonObject){
-        String authorInfo = jsonObject.toString();
-        if (authorInfo.equals("{}")) {
-            return ResultVOUtil.error(ResultEnum.REQUEST_NULL);
-        }
-        String type = jsonObject.get("type").toString();
-        if (!type.equals("1")){
+    public ResultVO deleteAuthorInfo(@RequestParam(value = "type") Integer type,
+                                     @RequestParam(value = "authorName") String aName,
+                                     @RequestParam(value = "authorURL") String aUrl){
+        if (type != 1){
             return ResultVOUtil.error(ResultEnum.TYPE_ERROR);
         }
 
-        // 获取作者信息
-        String aName = jsonObject.get("authorName").toString();
-        String aUrl = jsonObject.get("authorURL").toString();
-
-        // 保存作者信息
+        // 作者信息
         Author author = new Author();
         author.setAName(aName);
         author.setAUrl(aUrl);

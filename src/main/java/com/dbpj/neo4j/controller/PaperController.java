@@ -56,29 +56,26 @@ public class PaperController {
     // 插入论文
     @CrossOrigin
     @PostMapping("/insert")
-    public ResultVO insertPaperInfo(@RequestBody JSONObject jsonObject){
-        String paperInfo = jsonObject.toString();
-        if (paperInfo.equals("{}")) {
-            return ResultVOUtil.error(ResultEnum.REQUEST_NULL);
-        }
-        String type = jsonObject.get("type").toString();
-        if (!type.equals("2")){
+    public ResultVO insertPaperInfo(@RequestParam(value = "type") Integer type,
+                                    @RequestParam(value = "authorName") String aName,
+                                    @RequestParam(value = "authorURL") String aUrl,
+                                    @RequestParam(value = "paperTitle") String pTitle,
+                                    @RequestParam(value = "conference") String cName,
+                                    @RequestParam(value = "publishYear") Integer pYear,
+                                    @RequestParam(value = "citationTime") Integer pCitation,
+                                    @RequestParam(value = "department") String department,
+                                    @RequestParam(value = "field") String field){
+        if (type != 2){
             return ResultVOUtil.error(ResultEnum.TYPE_ERROR);
         }
 
         // 获取论文信息
-        String pTitle = jsonObject.get("paperTitle").toString();
-        String pYearStr = jsonObject.get("publishYear").toString();
-        String pCitation = jsonObject.get("citationTime").toString();
-        Integer pYear = Integer.valueOf(pYearStr);
         Paper paper = new Paper();
         paper.setPTitle(pTitle);
         paper.setPYear(pYear);
-        paper.setPCitation(Integer.valueOf(pCitation));
+        paper.setPCitation(pCitation);
 
         // 获取作者信息
-        String aName = jsonObject.get("authorName").toString();
-        String aUrl = jsonObject.get("authorURL").toString();
         List<Author> authorList = new ArrayList<>();
         Author author = new Author();
         author.setAName(aName);
@@ -86,29 +83,27 @@ public class PaperController {
         authorList.add(author);
 
         // 获取会议信息
-        String cName = jsonObject.get("conference").toString();
-
         List<Conference> conferenceList = new ArrayList<>();
         Conference conference = new Conference();
         conference.setCName(cName);
         conferenceList.add(conference);
 
         // 获取单位信息
-        String dName = jsonObject.get("department").toString();
+        String[] dNames = department.split(",");
         List<Department> departmentList = new ArrayList<>();
-        Department department = new Department();
-        department.setDName(dName);
-        departmentList.add(department);
+        for (int i=0; i<dNames.length; i++){
+            Department d = new Department();
+            d.setDName(dNames[i]);
+            departmentList.add(d);
+        }
 
         // 获取领域信息
-        String fields = jsonObject.get("field").toString();
-        String[] fName = fields.split(",");
-        System.out.println(fName.toString());
+        String[] fNames = field.split(",");
         List<Field> fieldList = new ArrayList<>();
-        for (int i=0; i<fName.length; i++){
-            Field field = new Field();
-            field.setFName(fName[i]);
-            fieldList.add(field);
+        for (int i=0; i<fNames.length; i++){
+            Field f = new Field();
+            f.setFName(fNames[i]);
+            fieldList.add(f);
         }
 
         long startTime = System.currentTimeMillis();   //获取开始时间
@@ -168,29 +163,26 @@ public class PaperController {
     // 删除论文
     @CrossOrigin
     @PostMapping("/delete")
-    public ResultVO deletePaperInfo(@RequestBody JSONObject jsonObject){
-        String paperInfo = jsonObject.toString();
-        if (paperInfo.equals("{}")) {
-            return ResultVOUtil.error(ResultEnum.REQUEST_NULL);
-        }
-        String type = jsonObject.get("type").toString();
-        if (!type.equals("2")){
+    public ResultVO deletePaperInfo(@RequestParam(value = "type") Integer type,
+                                    @RequestParam(value = "authorName") String aName,
+                                    @RequestParam(value = "authorURL") String aUrl,
+                                    @RequestParam(value = "paperTitle") String pTitle,
+                                    @RequestParam(value = "conference") String cName,
+                                    @RequestParam(value = "publishYear") Integer pYear,
+                                    @RequestParam(value = "citationTime") Integer pCitation,
+                                    @RequestParam(value = "department") String department,
+                                    @RequestParam(value = "field") String field){
+        if (type != 2){
             return ResultVOUtil.error(ResultEnum.TYPE_ERROR);
         }
 
         // 获取论文信息
-        String pTitle = jsonObject.get("paperTitle").toString();
-        String pYearStr = jsonObject.get("publishYear").toString();
-        String pCitation = jsonObject.get("citationTime").toString();
-        Integer pYear = Integer.valueOf(pYearStr);
         Paper paper = new Paper();
         paper.setPTitle(pTitle);
         paper.setPYear(pYear);
-        paper.setPCitation(Integer.valueOf(pCitation));
+        paper.setPCitation(pCitation);
 
         // 获取作者信息
-        String aName = jsonObject.get("authorName").toString();
-        String aUrl = jsonObject.get("authorURL").toString();
         List<Author> authorList = new ArrayList<>();
         Author author = new Author();
         author.setAName(aName);
@@ -198,29 +190,27 @@ public class PaperController {
         authorList.add(author);
 
         // 获取会议信息
-        String cName = jsonObject.get("conference").toString();
-
         List<Conference> conferenceList = new ArrayList<>();
         Conference conference = new Conference();
         conference.setCName(cName);
         conferenceList.add(conference);
 
         // 获取单位信息
-        String dName = jsonObject.get("department").toString();
+        String[] dNames = department.split(",");
         List<Department> departmentList = new ArrayList<>();
-        Department department = new Department();
-        department.setDName(dName);
-        departmentList.add(department);
+        for (int i=0; i<dNames.length; i++){
+            Department d = new Department();
+            d.setDName(dNames[i]);
+            departmentList.add(d);
+        }
 
         // 获取领域信息
-        String fields = jsonObject.get("field").toString();
-        String[] fName = fields.split(",");
-        System.out.println(fName.toString());
+        String[] fNames = field.split(",");
         List<Field> fieldList = new ArrayList<>();
-        for (int i=0; i<fName.length; i++){
-            Field field = new Field();
-            field.setFName(fName[i]);
-            fieldList.add(field);
+        for (int i=0; i<fNames.length; i++){
+            Field f = new Field();
+            f.setFName(fNames[i]);
+            fieldList.add(f);
         }
 
         long startTime = System.currentTimeMillis();   //获取开始时间
