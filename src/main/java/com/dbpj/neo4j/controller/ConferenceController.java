@@ -51,7 +51,7 @@ public class ConferenceController {
         Map<String, Long> ret = new TreeMap<>();
         ret.put("time", runtime);
 
-        return ResultVOUtil.success();
+        return ResultVOUtil.success(ret);
     }
 
     // 删除会议
@@ -81,6 +81,6 @@ public class ConferenceController {
         Map<String, Long> ret = new TreeMap<>();
         ret.put("time", runtime);
 
-        return ResultVOUtil.success();
+        return ResultVOUtil.success(ret);
     }
 }

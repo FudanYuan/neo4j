@@ -9,7 +9,6 @@ import com.dbpj.neo4j.relation.AuthorPaperRelation;
 import com.dbpj.neo4j.service.AuthorPaperRelationService;
 import com.dbpj.neo4j.service.AuthorService;
 import com.dbpj.neo4j.utils.ResultVOUtil;
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -142,7 +141,7 @@ public class AuthorController {
         // 返回
         Map<String, Long> ret = new TreeMap<>();
         ret.put("time", runtime);
-        return ResultVOUtil.success(ResultEnum.SUCCESS);
+        return ResultVOUtil.success(ret);
     }
 
     // 删除作者
@@ -170,6 +169,6 @@ public class AuthorController {
         // 返回
         Map<String, Long> ret = new TreeMap<>();
         ret.put("time", runtime);
-        return ResultVOUtil.success(ResultEnum.SUCCESS);
+        return ResultVOUtil.success(ret);
     }
 }
