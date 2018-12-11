@@ -61,7 +61,7 @@ public class FieldServiceImpl implements FieldService {
                 indexList.add(fId);
             }
         }
-        return null;
+        return indexList;
     }
 
     @Override
