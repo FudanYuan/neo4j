@@ -216,6 +216,9 @@ public class PaperController {
         long startTime = System.currentTimeMillis();   //获取开始时间
 
         List<Paper> paperList = paperService.findByTitle(pTitle);
+        if(paperList.size() == 0){
+            return ResultVOUtil.success(ResultEnum.PAPER_NOT_EXISTS);
+        }
         paperService.deletePapers(paperList);
 
         long endTime=System.currentTimeMillis(); //获取结束时间

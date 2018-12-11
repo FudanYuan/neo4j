@@ -163,6 +163,9 @@ public class AuthorController {
         long runtime = 0;
         long startTime = System.currentTimeMillis();   //获取开始时间
         List<Author> authors = authorService.findAllByNameAndUrl(aName, aUrl);
+        if(authors.size() == 0){
+            return ResultVOUtil.success(ResultEnum.AUTHOR_NOT_EXISTS);
+        }
         authorService.deleteAuthors(authors);
         long endTime=System.currentTimeMillis(); //获取结束时间
         runtime += endTime-startTime;

@@ -72,6 +72,9 @@ public class ConferenceController {
         long runtime = 0;
         long startTime = System.currentTimeMillis();   //获取开始时间
         List<Conference> conferenceList = conferenceService.findByCName(cName);
+        if(conferenceList.size() == 0){
+            return ResultVOUtil.success(ResultEnum.CONFERENCE_NOT_EXISTS);
+        }
         conferenceService.deleteConferences(conferenceList);
 
         long endTime = System.currentTimeMillis(); //获取结束时间

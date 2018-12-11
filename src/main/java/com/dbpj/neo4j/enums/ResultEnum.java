@@ -11,7 +11,10 @@ public enum ResultEnum {
     SUCCESS(0, "成功"),
     ERROR(1, "错误"),
     TYPE_ERROR(2, "类型错误"),
-    REQUEST_NULL(3, "请求为空")
+    REQUEST_NULL(3, "请求为空"),
+    PAPER_NOT_EXISTS(4, "论文不存在"),
+    AUTHOR_NOT_EXISTS(5, "作者不存在"),
+    CONFERENCE_NOT_EXISTS(6, "会议不存在")
     ;
 
     private Integer code;
