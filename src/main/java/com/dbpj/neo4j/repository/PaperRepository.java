@@ -27,6 +27,17 @@ public interface PaperRepository extends GraphRepository<Paper> {
 
     List<Paper> findAllByPTitleContains(String title);
 
+    @Query("MATCH (p:paper) WHERE p.pTitle = {paperTitle} " +
+            "{publishYear}" +
+            "{conference} " +
+            "{author} " +
+            "{field} " +
+            " RETURN {r} LIMIT {k}")
+    List<Object> findAllByAll(@Param("conference")String conference, @Param("author")String author,
+                              @Param("field")String field, @Param("publishYear")String publishYear,
+                              @Param("paperTitle")String paperTitle, @Param("r")String r,
+                              @Param("k")Integer limit);
+
     @Query("CREATE (p:paper{pTitle:{pTitle}, pAbstract: {pAbstract}, pPage:{pPage}, pCitation:{pCitation}, pYear:{pYear}}) RETURN p")
     List<Paper> addPaper(@Param("pTitle") String pTitle, @Param("pAbstract") String pAbstract,
                           @Param("pPage") Integer pPage, @Param("pCitation") Integer pCitation,

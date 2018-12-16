@@ -49,6 +49,11 @@ public interface PaperService {
     List<Paper> findAllByYearBetween(Integer year1, Integer year2);
 
     /**
+     * 根据全部进行查询
+     */
+    List<Object> findAllByAll(String conference, String author, String field, String publishYear, String paperTitle, String r, Integer limit);
+
+    /**
      * 保存
      */
     List<Paper> save(Paper paper);

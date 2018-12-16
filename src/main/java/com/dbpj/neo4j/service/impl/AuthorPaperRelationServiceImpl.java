@@ -67,6 +67,21 @@ public class AuthorPaperRelationServiceImpl implements AuthorPaperRelationServic
     }
 
     @Override
+    public List<AuthorPaperRelation> findAuthorsCooperateBetweenWithId(Integer authorA, Integer authorB, Integer k){
+        return relationRepository.findAuthorsCooperateBetweenWithId(authorA, authorB, k);
+    }
+
+    @Override
+    public List<AuthorPaperRelation> findAuthorsCooperateBetweenWithUrl(String authorA, String authorB, Integer k){
+        return relationRepository.findAuthorsCooperateBetweenWithUrl(authorA, authorB, k);
+    }
+
+    @Override
+    public List<AuthorPaperRelation> findAuthorsCooperateBetweenWithAuthorName(String authorA, String authorB, Integer k){
+        return relationRepository.findAuthorsCooperateBetweenWithAuthorName(authorA, authorB, k);
+    }
+
+    @Override
     public List<AuthorPaperRelation> save(AuthorPaperRelation relation) {
         return relationRepository.addRelation(relation.getAuthor().getId(),
                 relation.getPaper().getId(), relation.getAIndex());

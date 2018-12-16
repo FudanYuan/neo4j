@@ -2,12 +2,12 @@ package com.dbpj.neo4j.controller;
 
 import com.dbpj.neo4j.VO.Neo4jGraphVO;
 import com.dbpj.neo4j.VO.ResultVO;
-import com.dbpj.neo4j.enums.CategoryEnum;
 import com.dbpj.neo4j.enums.ResultEnum;
 import com.dbpj.neo4j.node.*;
 import com.dbpj.neo4j.relation.AuthorPaperRelation;
 import com.dbpj.neo4j.service.AuthorPaperRelationService;
 import com.dbpj.neo4j.service.AuthorService;
+import com.dbpj.neo4j.utils.Neo4jGraphVOUtil;
 import com.dbpj.neo4j.utils.ResultVOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +27,57 @@ public class AuthorController {
     @Autowired
     private AuthorPaperRelationService authorPaperRelationService;
 
-    // 查询作者信息
     @CrossOrigin
-    @PostMapping("/simple-query")
-    public ResultVO getAuthorInfo(@RequestParam("aName") String aName){
-        System.out.println("您正在查询作者——" + aName);
-        List<Author> authors = authorService.findAllByName(aName);
-        return ResultVOUtil.success(authors);
+    @PostMapping("/cooperationBetween")
+    public ResultVO getAuthorsCooperationBetween(@RequestParam("authorA") String authorA,
+                                                 @RequestParam("authorB") String authorB,
+                                                 @RequestParam(value = "showTime", required = false, defaultValue = "10") Integer limit,
+                                                 @RequestParam(value = "queryTime", required = false, defaultValue = "1") Integer queryTimes){
+
+        System.out.println("authorA: " + authorA);
+        System.out.println("authorB: " + authorB);
+        System.out.println("showTime: " + limit);
+        System.out.println("queryTime: " + queryTimes);
+
+        if(authorA.length() == 0 || authorB.length() == 0){
+            return ResultVOUtil.error(ResultEnum.ERROR);
+        }
+        Integer authorAid = -1;
+        Integer authorBid = -1;
+        try {
+            authorAid = new Integer(authorA);
+        }catch(Exception e){
+            System.out.println("authorA不是id" );
+        }
+        try {
+            authorBid = new Integer(authorB);
+        }catch(Exception e){
+            System.out.println("authorB不是id" );
+        }
+        // 记录执行时间
+        long runtime = 0;
+        //获取开始时间
+        long startTime = System.currentTimeMillis();
+
+        List<AuthorPaperRelation> authorPaperRelations;
+
+        if (authorAid >= 0 && authorBid >= 0){
+            authorPaperRelations = authorPaperRelationService.findAuthorsCooperateBetweenWithId(authorAid, authorBid, limit);
+        }
+        else if (authorAid < 0 && authorBid < 0){
+            authorPaperRelations = authorPaperRelationService.findAuthorsCooperateBetweenWithUrl(authorA, authorB, limit);
+        }
+        else{
+            return ResultVOUtil.error(ResultEnum.TYPE_ERROR);
+        }
+        //获取结束时间
+        long endTime=System.currentTimeMillis();
+        runtime += endTime-startTime;
+
+        Neo4jGraphVO neo4jGraphVO = Neo4jGraphVOUtil.getNeo4jGraphVOByAuthorPaperRelations(authorPaperRelations);
+        neo4jGraphVO.setTime(runtime);
+        System.out.println(neo4jGraphVO.toString());
+        return ResultVOUtil.success(neo4jGraphVO);
     }
 
     // 查询作者合作信息
@@ -56,59 +100,17 @@ public class AuthorController {
         // 判断author是id，name还是url
         // 记录执行时间
         long runtime = 0;
-        long startTime = System.currentTimeMillis();   //获取开始时间
+        //获取开始时间
+        long startTime = System.currentTimeMillis();
 
         List<AuthorPaperRelation> authorPaperRelations = authorPaperRelationService.findAuthorsCooperateWith(author, author, limit);
 
-        long endTime=System.currentTimeMillis(); //获取结束时间
+        //获取结束时间
+        long endTime=System.currentTimeMillis();
         runtime += endTime-startTime;
 
         // 返回
-        Map<String, Long> ret = new TreeMap<>();
-        ret.put("time", runtime);
-
-        Neo4jGraphVO neo4jGraphVO = new Neo4jGraphVO("force");
-        List<TreeMap> nodes = new ArrayList<>();
-        List<TreeMap> links = new ArrayList<>();
-        int index = 0;
-        Map<Long, Integer> indexMap = new HashMap<>();
-        for (AuthorPaperRelation authorPaperRelation : authorPaperRelations){
-            TreeMap<String, Object> node = new TreeMap<>();
-            TreeMap<String, Object> paper = new TreeMap<>();
-            TreeMap<String, Integer> link = new TreeMap<>();
-
-            // 增加 author
-            Author a = authorPaperRelation.getAuthor();
-            Long aId = a.getId();
-            if (!indexMap.containsKey(aId)){
-                indexMap.put(aId, index++);
-                node.put("name", authorPaperRelation.getAuthor().getAName());
-                node.put("value", 1);
-                node.put("category", CategoryEnum.AUTHOR.getCode());
-                nodes.add(node);
-            }
-            int sourceIndex = indexMap.get(aId);
-
-            // 增加 paper
-            Paper p = authorPaperRelation.getPaper();
-            Long pId = p.getId();
-            if (!indexMap.containsKey(pId)){
-                indexMap.put(pId, index++);
-                paper.put("name", authorPaperRelation.getPaper().getPTitle());
-                paper.put("value", 1);
-                paper.put("category", CategoryEnum.PAPER.getCode());
-                nodes.add(paper);
-            }
-            int targetIndex = indexMap.get(pId);
-
-            link.put("source", sourceIndex);
-            link.put("target", targetIndex);
-
-            links.add(link);
-        }
-
-        neo4jGraphVO.setNodes(nodes);
-        neo4jGraphVO.setLinks(links);
+        Neo4jGraphVO neo4jGraphVO = Neo4jGraphVOUtil.getNeo4jGraphVOByAuthorPaperRelations(authorPaperRelations);
         neo4jGraphVO.setTime(runtime);
         System.out.println(neo4jGraphVO.toString());
         return ResultVOUtil.success(neo4jGraphVO);

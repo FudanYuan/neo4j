@@ -59,6 +59,11 @@ public class PaperServiceImpl implements PaperService{
     }
 
     @Override
+    public List<Object> findAllByAll(String conference, String author, String field, String publishYear, String paperTitle,String r, Integer limit){
+        return paperRepository.findAllByAll(conference, author, field, publishYear, paperTitle, r, limit);
+    }
+
+    @Override
     public List<Paper> save(Paper paper) {
         return paperRepository.addPaper(paper.getPTitle(), paper.getPAbstract(),
                 paper.getPPage(), paper.getPCitation(), paper.getPYear());

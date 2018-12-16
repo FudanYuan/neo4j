@@ -34,6 +34,24 @@ public interface AuthorPaperRelationRepository extends GraphRepository<AuthorPap
             "RETURN w, count(*) order by count(*) desc LIMIT {k}")
     List<AuthorPaperRelation> findAuthorsCooperateWith(@Param("aName") String aName, @Param("aUrl") String aUrl, @Param("k") Integer k);
 
+    @Query("MATCH w=(a1:author)-[r1]->(p:paper)<-[r2]-(a2:author) " +
+            "WHERE ID(a1) = {authorA} " +
+            "AND ID(a2) = {authorB} " +
+            "RETURN w LIMIT {k}")
+    List<AuthorPaperRelation> findAuthorsCooperateBetweenWithId(@Param("authorA")Integer authorA, @Param("authorB")Integer authorB, @Param("k")Integer k);
+
+    @Query("MATCH w=(a1:author)-[r1]->(p:paper)<-[r2]-(a2:author) " +
+            "WHERE a1.aUrl =~ ('(?i).*'+{authorA}+'.*') " +
+            "AND a2.aUrl =~ ('(?i).*'+{authorB}+'.*') " +
+            "RETURN w LIMIT {k}")
+    List<AuthorPaperRelation> findAuthorsCooperateBetweenWithUrl(@Param("authorA")String authorA, @Param("authorB")String authorB, @Param("k")Integer k);
+
+    @Query("MATCH w=(a1:author)-[r1]->(p:paper)<-[r2]-(a2:author) " +
+            "WHERE a1.aName =~ ('(?i).*'+{authorA}+'.*') " +
+            "AND a2.aName =~ ('(?i).*'+{authorB}+'.*') " +
+            "RETURN w LIMIT {k}")
+    List<AuthorPaperRelation> findAuthorsCooperateBetweenWithAuthorName(@Param("authorA")String authorA, @Param("authorB")String authorB, @Param("k")Integer k);
+
     @Query("MATCH (a:author),(p:paper) where ID(a)={startId} and ID(p)={endId} " +
             "create w=(a)-[r:publish{aIndex:{aIndex}}]->(p) return w")
     List<AuthorPaperRelation> addRelation(@Param("startId") Long startId, @Param("endId")  Long endId,
