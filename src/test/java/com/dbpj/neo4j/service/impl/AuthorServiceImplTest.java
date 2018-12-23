@@ -37,6 +37,12 @@ public class AuthorServiceImplTest {
     }
 
     @Test
+    public void findByName() {
+        List<Author> authors =  authorService.findByName("WangPeng");
+        Assert.assertEquals(1, authors.size());
+    }
+
+    @Test
     public void findAllByName() {
         List<Author> authors =  authorService.findAllByName("WangPeng");
         Assert.assertEquals(1, authors.size());
