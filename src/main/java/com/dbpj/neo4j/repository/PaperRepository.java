@@ -38,6 +38,9 @@ public interface PaperRepository extends GraphRepository<Paper> {
                               @Param("paperTitle")String paperTitle, @Param("r")String r,
                               @Param("k")Integer limit);
 
+    @Query("MATCH (p:paper) RETURN p order by p.pCitation desc limit {limit}")
+    List<Paper> findByPCitationCountLimit(@Param("limit") Integer limit);
+
     @Query("CREATE (p:paper{pTitle:{pTitle}, pAbstract: {pAbstract}, pPage:{pPage}, pCitation:{pCitation}, pYear:{pYear}}) RETURN p")
     List<Paper> addPaper(@Param("pTitle") String pTitle, @Param("pAbstract") String pAbstract,
                           @Param("pPage") Integer pPage, @Param("pCitation") Integer pCitation,

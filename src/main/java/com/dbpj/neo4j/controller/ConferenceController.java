@@ -1,11 +1,10 @@
 package com.dbpj.neo4j.controller;
 
-import com.dbpj.neo4j.VO.ResultVO;
+import com.dbpj.neo4j.vo.ResultVO;
 import com.dbpj.neo4j.enums.ResultEnum;
 import com.dbpj.neo4j.node.Conference;
 import com.dbpj.neo4j.service.ConferenceService;
 import com.dbpj.neo4j.utils.ResultVOUtil;
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

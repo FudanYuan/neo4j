@@ -1,7 +1,7 @@
 package com.dbpj.neo4j.controller;
 
-import com.dbpj.neo4j.VO.Neo4jGraphVO;
-import com.dbpj.neo4j.VO.ResultVO;
+import com.dbpj.neo4j.vo.Neo4jGraphVO;
+import com.dbpj.neo4j.vo.ResultVO;
 import com.dbpj.neo4j.enums.CategoryEnum;
 import com.dbpj.neo4j.enums.ResultEnum;
 import com.dbpj.neo4j.node.*;
@@ -144,7 +144,7 @@ public class PaperController {
                 TreeMap<String, Object> paper = new TreeMap<>();
                 Paper p = str.get("p");
                 paper.put("name", p.getPTitle());
-                paper.put("value", 1);
+                paper.put("value", 10);
                 paper.put("category", CategoryEnum.PAPER.getCode());
                 nodes.add(paper);
 
@@ -159,7 +159,7 @@ public class PaperController {
                     indexMap.put(pId, index++);
                     TreeMap<String, Object> node = new TreeMap<>();
                     node.put("name", p.getPTitle());
-                    node.put("value", 1);
+                    node.put("value", 10);
                     node.put("category", CategoryEnum.PAPER.getCode());
                     nodes.add(node);
                 }

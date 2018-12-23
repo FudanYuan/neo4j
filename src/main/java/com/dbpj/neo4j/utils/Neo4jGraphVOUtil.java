@@ -1,6 +1,6 @@
 package com.dbpj.neo4j.utils;
 
-import com.dbpj.neo4j.VO.Neo4jGraphVO;
+import com.dbpj.neo4j.vo.Neo4jGraphVO;
 import com.dbpj.neo4j.enums.CategoryEnum;
 import com.dbpj.neo4j.node.Author;
 import com.dbpj.neo4j.node.Paper;

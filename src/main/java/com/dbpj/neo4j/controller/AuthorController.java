@@ -1,7 +1,7 @@
 package com.dbpj.neo4j.controller;
 
-import com.dbpj.neo4j.VO.Neo4jGraphVO;
-import com.dbpj.neo4j.VO.ResultVO;
+import com.dbpj.neo4j.vo.Neo4jGraphVO;
+import com.dbpj.neo4j.vo.ResultVO;
 import com.dbpj.neo4j.enums.ResultEnum;
 import com.dbpj.neo4j.node.*;
 import com.dbpj.neo4j.relation.AuthorPaperRelation;

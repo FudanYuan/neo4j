@@ -1,6 +1,6 @@
 package com.dbpj.neo4j.utils;
 
-import com.dbpj.neo4j.VO.ResultVO;
+import com.dbpj.neo4j.vo.ResultVO;
 import com.dbpj.neo4j.enums.ResultEnum;
 
 /**

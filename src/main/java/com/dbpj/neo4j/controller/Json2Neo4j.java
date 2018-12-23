@@ -1,6 +1,6 @@
 package com.dbpj.neo4j.controller;
 
-import com.dbpj.neo4j.VO.ResultVO;
+import com.dbpj.neo4j.vo.ResultVO;
 import com.dbpj.neo4j.node.*;
 import com.dbpj.neo4j.relation.AuthorDepartmentRelation;
 import com.dbpj.neo4j.service.impl.*;

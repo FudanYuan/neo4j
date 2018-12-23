@@ -1,4 +1,4 @@
-package com.dbpj.neo4j.VO;
+package com.dbpj.neo4j.vo;
 
 import lombok.Data;
 import java.util.ArrayList;

@@ -27,6 +27,9 @@ public interface PaperConferenceRelationRepository extends GraphRepository<Paper
     @Query("MATCH w=(p:paper)-[r:belong_to]->(c:conference) where c.cName =~ ('(?i).*'+{cName}+'.*') return w")
     List<PaperConferenceRelation> findAllByConferenceName(@Param("cName") String cName);
 
+    @Query("Match(p:paper)-[r:belong_to]->(c:conference) WHERE c.cName={cName} and p.pYear>={pYear1} and p.pYear<={pYear2} RETURN count(p)")
+    Long findPaperCountByConferenceAndPYearBetween(@Param("cName") String cName, @Param("pYear1") Integer pYear1,  @Param("pYear2") Integer pYear2);
+
     @Query("MATCH (p:paper),(c:conference) where ID(p)={startId} and ID(c)={endId} " +
             "create w=(p)-[r:belong_to]->(c) return w")
     List<PaperConferenceRelation> addRelation(@Param("startId") Long startId, @Param("endId")  Long endId);

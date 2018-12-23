@@ -1,11 +1,13 @@
 package com.dbpj.neo4j.repository;
 
+import com.dbpj.neo4j.node.Author;
 import com.dbpj.neo4j.relation.AuthorPaperRelation;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: Jeremy
@@ -51,6 +53,12 @@ public interface AuthorPaperRelationRepository extends GraphRepository<AuthorPap
             "AND a2.aName =~ ('(?i).*'+{authorB}+'.*') " +
             "RETURN w LIMIT {k}")
     List<AuthorPaperRelation> findAuthorsCooperateBetweenWithAuthorName(@Param("authorA")String authorA, @Param("authorB")String authorB, @Param("k")Integer k);
+
+    @Query("Match (a:author)-[r:publish]->(p:paper) where p.pYear={pYear} return count(distinct(a))")
+    Long findAuthorCountByYear(@Param("pYear") Integer pYear);
+
+    @Query("Match (a:author)-[r:publish]->(p:paper) where p.pYear={pYear} return count(distinct(p))")
+    Long findPaperCountByYear(@Param("pYear") Integer pYear);
 
     @Query("MATCH (a:author),(p:paper) where ID(a)={startId} and ID(p)={endId} " +
             "create w=(a)-[r:publish{aIndex:{aIndex}}]->(p) return w")
